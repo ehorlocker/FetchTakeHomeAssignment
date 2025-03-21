@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FetchTakeHomeAssignment</string>
+    <string name="id_title">ID</string>
+    <string name="list_id_title">List ID</string>
+    <string name="name_title">Name</string>
+    <string name="button_title">Fetch JSON</string>
+</resources>

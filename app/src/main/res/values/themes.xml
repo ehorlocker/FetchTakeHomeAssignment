@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.FetchTakeHomeAssignment" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="snackbarStyle">@style/Widget.MaterialComponents.Snackbar</item>
+    </style>
+
+</resources>
