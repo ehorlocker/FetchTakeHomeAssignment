@@ -8,7 +8,6 @@ Simply clone this repository, open in Android Studio, and deploy to a device (mu
 
 ## Potential Improvements
 
-~~- Error handling~~
+- Error Handling
 - Unit/Integration/UI tests
-- Icon indicating a loading state
 - Ability to sort by descending/ascending 
