@@ -1,6 +1,5 @@
 package com.example.fetch.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fetch.R
 import com.example.fetch.data.models.HiringResponseItem
 
-class HiringDataRecylerViewAdapter(private val hiringResponseList: List<HiringResponseItem>) :
-    RecyclerView.Adapter<HiringDataRecylerViewAdapter.HiringResponseViewHolder>() {
+class HiringDataRecyclerViewAdapter(private val hiringResponseList: List<HiringResponseItem>) :
+    RecyclerView.Adapter<HiringDataRecyclerViewAdapter.HiringResponseViewHolder>() {
 
     class HiringResponseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val idTextView: TextView = view.findViewById(R.id.json_entry_id)

@@ -2,7 +2,6 @@ package com.example.fetch
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -12,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fetch.databinding.ActivityMainBinding
 import com.example.fetch.main.MainViewModel
-import com.example.fetch.ui.adapters.HiringDataRecylerViewAdapter
+import com.example.fetch.ui.adapters.HiringDataRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         }
                         is MainViewModel.HiringEvent.Success -> {
                             val hiringResponseAdapter =
-                                HiringDataRecylerViewAdapter(event.resultData)
+                                HiringDataRecyclerViewAdapter(event.resultData)
 
                             binding.hiringRecyclerView.layoutManager =
                                 LinearLayoutManager(applicationContext)
