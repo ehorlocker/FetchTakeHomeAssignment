@@ -2,8 +2,10 @@ package com.example.fetch
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -44,9 +46,10 @@ class MainActivity : ComponentActivity() {
                                 Snackbar.LENGTH_SHORT)
                                 .show()
                             Log.e(TAG, event.errorText)
+                            binding.hiringLoadingBar.isVisible = false
                         }
                         is MainViewModel.HiringEvent.Loading -> {
-                            Log.d(TAG, "Loading...")
+                            binding.hiringLoadingBar.isVisible = true
                         }
                         is MainViewModel.HiringEvent.Success -> {
                             val hiringResponseAdapter =
@@ -55,6 +58,7 @@ class MainActivity : ComponentActivity() {
                             binding.hiringRecyclerView.layoutManager =
                                 LinearLayoutManager(applicationContext)
                             binding.hiringRecyclerView.adapter = hiringResponseAdapter
+                            binding.hiringLoadingBar.isVisible = false
                         }
                     }
                 }
