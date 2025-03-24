@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <Button
@@ -14,6 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/teal_200"
         android:orientation="horizontal"
         android:paddingLeft="32dp"
         android:paddingEnd="32dp">
@@ -22,61 +25,76 @@
             android:id="@+id/id_title_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".9"
+            android:layout_weight="1"
             android:paddingEnd="16dp"
             android:text="@string/id_title"
-            android:textAlignment="viewEnd" />
+            android:textAlignment="viewEnd"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <FrameLayout
-            android:id="@+id/list_id_frame_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5">
-
-            <ImageView
-                android:id="@+id/list_id_sort_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@drawable/arrow_drop_up_24px" />
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/list_id_title_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight=".5"
                 android:text="@string/list_id_title"
-                android:textAlignment="center" />
-        </FrameLayout>
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/list_id_name_layout"
+            <ImageView
+                android:id="@+id/list_id_sort_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_drop_up_24px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/list_id_title_textview"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".9"
-            android:paddingStart="16dp">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/name_title_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="@string/name_title" />
+                android:text="@string/name_title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/name_sort_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/arrow_drop_up_24px" />
-        </FrameLayout>
+                android:src="@drawable/arrow_drop_up_24px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/name_title_textview"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:id="@+id/hiring_loading_bar"
