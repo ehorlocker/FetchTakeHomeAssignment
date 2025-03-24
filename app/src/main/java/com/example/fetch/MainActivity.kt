@@ -32,6 +32,26 @@ class MainActivity : ComponentActivity() {
             viewModel.getData()
         }
 
+        binding.listIdTitleTextview.setOnClickListener {
+            viewModel.flipListIdSortAscending()
+            viewModel.sortHiringData()
+            updateListIdIcon()
+        }
+
+        binding.listIdSortIcon.setOnClickListener {
+            binding.listIdTitleTextview.performClick()
+        }
+
+        binding.nameTitleTextview.setOnClickListener {
+            viewModel.flipNameSortAscending()
+            viewModel.sortHiringData()
+            updateNameIcon()
+        }
+
+        binding.nameSortIcon.setOnClickListener {
+            binding.nameTitleTextview.performClick()
+        }
+
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.dataRetrieval.collect { event ->
@@ -63,5 +83,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    fun updateListIdIcon() {
+        val drawableResId = if (viewModel.isListIdSortAscending()) R.drawable.arrow_drop_up_24px
+        else R.drawable.arrow_drop_down_24px
+        binding.listIdSortIcon.setImageResource(drawableResId)
+    }
+
+    fun updateNameIcon() {
+        val drawableResId = if (viewModel.isNameSortAscending()) R.drawable.arrow_drop_up_24px
+        else R.drawable.arrow_drop_down_24px
+        binding.nameSortIcon.setImageResource(drawableResId)
     }
 }

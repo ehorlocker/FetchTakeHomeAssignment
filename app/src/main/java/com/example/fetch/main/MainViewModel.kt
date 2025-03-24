@@ -1,6 +1,5 @@
 package com.example.fetch.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fetch.data.models.HiringResponseItem
@@ -9,6 +8,7 @@ import com.example.fetch.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +24,12 @@ class MainViewModel @Inject constructor(
         object Empty : HiringEvent()
     }
 
+    private lateinit var hiringDataCache : List<HiringResponseItem>
+    private var isListIdSortAscending = true
+    private var isNameSortAscending = true
     private val _dataRetrieval = MutableStateFlow<HiringEvent>(HiringEvent.Empty)
-    val dataRetrieval: StateFlow<HiringEvent> = _dataRetrieval
+    val dataRetrieval: StateFlow<HiringEvent> = _dataRetrieval.asStateFlow()
+
 
     fun getData () {
         viewModelScope.launch(dispatchers.io) {
@@ -37,15 +41,49 @@ class MainViewModel @Inject constructor(
                     if (hiringResponse.data == null) {
                         HiringEvent.Failure("Failed to retrieve hiring data")
                     }
-                    val filteredHiringData = hiringResponse.data!!
+                    hiringDataCache = hiringResponse.data!!
                         .filter{ !it.name.isNullOrBlank() }
-                    val sortedHiringData = filteredHiringData
-                        .sortedWith(compareBy({it.listId},
-                            { it.name.substring(0, it.name.indexOf(' ')) },
-                            { it.name.substring(it.name.indexOf(' ') + 1).toInt() }))
-                    _dataRetrieval.value = HiringEvent.Success(sortedHiringData)
+                    sortHiringData()
                 }
             }
         }
+    }
+
+    fun sortHiringData() {
+        if (!::hiringDataCache.isInitialized) {
+            return
+        }
+        val listIdOrder = if (isListIdSortAscending) 1 else -1
+        val nameOrder = if (isNameSortAscending) 1 else -1
+
+        val sortedHiringData = hiringDataCache
+            .sortedWith(
+                compareBy<HiringResponseItem> {it.listId * listIdOrder}
+                    .thenComparator { a, b ->
+                        val firstComparison = a.name.substringBefore(' ')
+                            .compareTo(b.name.substringBefore(' ')) * nameOrder
+                        if (firstComparison != 0) return@thenComparator firstComparison
+
+                        val secondComparison = a.name.substringAfter(' ').toInt()
+                            .compareTo(b.name.substringAfter(' ').toInt()) * nameOrder
+                        return@thenComparator secondComparison
+                    })
+        _dataRetrieval.value = HiringEvent.Success(sortedHiringData)
+    }
+
+    fun flipListIdSortAscending() {
+        isListIdSortAscending = !isListIdSortAscending
+    }
+
+    fun flipNameSortAscending() {
+        isNameSortAscending = !isNameSortAscending
+    }
+
+    fun isListIdSortAscending() : Boolean {
+        return isListIdSortAscending
+    }
+
+    fun isNameSortAscending() : Boolean {
+        return isNameSortAscending
     }
 }
